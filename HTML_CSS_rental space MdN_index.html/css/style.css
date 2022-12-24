@@ -1,0 +1,676 @@
+@charset "utf-8";
+
+/* 全体 */
+
+/* ↓コントロール+shift+pでTODO */
+/* TODO: */
+
+*{
+    box-sizing: border-box;
+}
+
+/* ↓左上のロゴの上下の余白を揃える。 */
+img{
+    vertical-align: bottom;
+    /* ↓これでも可。 */
+    /* display: block; */
+}
+
+/* body */
+body{
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: 'Noto Sans JP', 'Open Sans', sans-serif;
+    font-weight: 400;
+    color: #333;
+    background-color: #fff;
+}
+
+/* 初期スタイル */
+h1,h2,h3{
+    margin-top: 0;
+    line-height: 1.5;
+    letter-spacing: 0.2em;
+    text-align: center;
+}
+
+h3{
+    color: #85a7cc;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+p{
+    margin-top: 0;
+    margin-bottom: 1.5em;
+    text-align: justify;
+}
+
+address{
+    font-style: normal;
+}
+
+a{
+    color: #666;
+    text-decoration: none;
+}
+
+a:hover,a:focus{
+    color: #000;
+    text-decoration: none;
+}
+
+ul{
+    margin: 1em 0;
+    padding: 0;
+    list-style: none;
+}
+
+img{
+    width: 100%;
+    /* ↓heightの初期値がautoのため書かなくても良い。 */
+    height: auto;
+}
+
+section{
+    padding: 60px 0;
+}
+
+/* h2 */
+.h2-title{
+    position: relative;
+                    /* ↓全て大文字に。 */
+    text-transform: uppercase;
+    /* ↓◆より手前に。position: relative;で使える。 */
+    z-index: 100;
+}
+
+/* 疑似要素◆ */
+.h2-title::before{
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: #a5d1ff;
+    position: absolute;
+    left: 50%;
+    margin-left: -20px;
+    /* ↓上の２行はこれでも可 */
+    /* left: calc(50% - 20px); */
+    transform: rotate(45deg);
+    /* ↓まとめる場合はこの順番で。 */
+    /* transform: translateX(-50) rotate(45deg); */
+
+    /* ↓h2の後ろに。 */
+    z-index: -100;
+}
+
+.txt-center{
+    text-align: center;
+}
+
+.txt-lead{
+    font-weight: 700;
+}
+
+/* ボタンベース */
+.btn{
+    display: block;
+    padding: 20px 35px;
+    border-radius: 8px;
+    margin: 0 auto;
+    border: none;
+}
+
+.btn:hover,.btn:focus{
+    background: rgba(0,0,0,0.7);
+    cursor: pointer;
+}
+
+/* Web予約ボタン */
+.btn-reserve{
+    color: #fff;
+    background: #69f;
+}
+
+/* コンテンツを格納 */
+.inner{
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+/* PC用 */
+@media screen and (min-width: 768px) {
+    .inner{
+        max-width: 1200px;
+    }
+}
+
+/* モバイルとPCでの表示 */
+.sp-only{
+    /* ↓モバイルでは表示。 */
+    display: block;
+}
+
+.pc-only{
+    /* ↓モバイルでは非表示。 */
+    display: none;
+}
+
+/* PC用 */
+@media screen and (min-width: 768px) {
+    .sp-only{
+        /* ↓PCでは非表示。 */
+        display: none;
+    }
+
+    .pc-only{
+        /* ↓PCでは表示。 */
+        display: block;
+    }
+}
+
+/* header */
+.header{
+    /* ↓下の２行でページ上部に固定。widthを指定する！ */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 10px;
+    background: rgba(255,255,255,0.9);
+    /* ↓１番前面に指定。大き目の値にする。 */
+    z-index: 200;
+}
+
+/* サイトロゴとナビゲーションの並び */
+.header-logo-menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* サイトロゴの表示 */
+.logo-area{
+    width: 200px;
+    margin: 0;
+    text-align: left;
+}
+
+@media screen and (min-width: 768px) {
+    .logo-area{
+        width: 250px;
+    }
+}
+
+/* ハンバーガーメニュー */
+/* ハンバーガーメニュー全体をくくるdivタグ */
+.gnav-toggle{
+    position: relative;
+    margin-top: 12px;
+}
+
+/* クリックの仕組み用チェックボックス */
+.gnav-hidden{
+    display: none;
+}
+
+/* ボタン自体 */
+#gnav-open{
+    display: inline-block;
+    width: 30px;
+    height: 22px;
+    vertical-align: middle;
+}
+
+/* ハンバーガーメニューボタンの三本線 */
+#gnav-open span,
+#gnav-open span::before,
+#gnav-open span::after{
+    content:'';
+    position: absolute;
+    height: 3px;
+    width: 25px;
+    border-radius: 3px;
+    background: #555;
+    display: block;
+    cursor: pointer;
+}
+
+#gnav-open span::before{
+    bottom: -8px;
+}
+
+#gnav-open span::after{
+    bottom: -16px;
+}
+
+/* ハンバーガーメニュー表示時の黒背景 */
+#gnav-close{
+    /* ↓非表示 */
+    display: none;
+    position: fixed;
+    z-index: 90;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    /* ↓不透明度0(非表示)、display: none;とセットで書く。 */
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+}
+
+/* ハンバーガーボタンクリック時の黒背景表示 */
+#gnav-input:checked ~ #gnav-close{
+    display: block;
+    opacity: 0.5;
+}
+
+/* ハンバーガーボタンクリック時のメニュー表示 */
+#gnav-input:checked ~ #gnav-content{
+    transform: translateX(0%);
+             /* ↓x軸 y軸 ぼかす */
+    box-shadow: 6px 0 25px rgba(0,0,0,0.15);
+}
+
+/* ハンバーガーメニュー */
+#gnav-content{
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 300;
+    width: 70%;
+    max-width: 300px;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    transition: 0.3s ease-in-out;
+    /* ↓画面外に隠す。 */
+    transform: translateX(-105%);
+}
+
+/* ハンバーガーメニュー各項目をまとめるulタグ */
+.gnav-menu{
+    /* ↓中央、横並び */
+    display: flex;
+    /* ↓縦並びにする。 */
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    /* ↓大文字に統一 */
+    text-transform: uppercase;
+}
+
+/* ハンバーガーメニュー各項目liタグ */
+.gnav-item{
+    border-bottom: 2px dotted #eee;
+    margin: 10px;
+    padding-bottom: 20px;
+}
+
+/* ハンバーガーメニュー各項目の文字 */
+.gnav-item a,.gnav-item label{
+    color: #fff;
+    font-size: 12px;
+    /* ↓aタグはインラインなのでbox型にしてクリック範囲を広げる。 */
+    display: block;
+    width: 200px;
+    text-align: center;
+}
+
+.gnav-item a::first-line,.gnav-item label::first-line{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* PC版のメニュー */
+@media screen and (min-width: 768px) {
+    .gnav-menu{
+        /* ↓横並び */
+        flex-direction: row;
+        padding-top: 15px;
+        margin: 0;
+    }
+
+    .gnav-item{
+        border-bottom: none;
+        margin: 0;
+        padding-bottom: 0;
+    }
+
+    .gnav-item a{
+        color: #333;
+        width: 120px;
+    }
+
+    .gnav-item a:hover{
+        color: #85a7cc;
+    }
+}
+
+/* section */
+.mv-area{
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../img/hero.jpg);
+    background-size: cover;
+    background-position: center center;
+    /* background-position: left -100px center; など。 */
+    /* ↓交差軸(横)の中央 */
+    display: flex;
+    /* ↓主軸(縦)の中央 */
+    justify-content: center;
+    align-items: center;
+    /* ↓縦並び */
+    flex-direction: column;
+}
+
+/* h1 */
+.mv-title{
+    color: #fff;
+    text-shadow: 0px 0px 3px #333;
+    /* ↓ヘッダーの高さの分、下に下げる。 */
+    margin-top: 70px;
+}
+
+@media screen and (min-width: 768px) {
+    .mv-area{
+        width: 100%;
+        height: 600px;
+    }
+
+    .mv-title{
+        margin-top: 90px;
+    }
+}
+
+/* section(利用人数や～) */
+.info-area{
+    background-color: #85a7cc;
+}
+
+.info-txt{
+    color: #fff;
+}
+
+/* PC版 */
+@media screen and (min-width: 768px) {
+    .info-content{
+        /* ↓横並び */
+        display: flex;
+        /* ↓逆順に並べ替える。(主軸の方向が変わる) */
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+
+    /* ↓文と画像を約1対1にする。 */
+    .info-txt{
+        flex: 1;
+        /* ↑flex: 1 1 0;を短縮した記述。
+        flex-grow(余白分を吸収): 1;
+        flex-shrink(縮小): 1;
+        flex-basis: 0; */
+        margin-left: 30px;
+    }
+
+    .info-area img{
+        flex: 1;
+        /* ↓今回はflexを消して下の記述をした方が綺麗に見える。 */
+        /* max-width: 60%; */
+    }
+}
+
+/* モバイル版 */
+/* section(サービス) */
+.service-area{
+    background-color: #fff;
+}
+
+/* サービスリスト(ul) */
+.service-content{
+    display: flex;
+    /* ↓折り返しを有効にする。 */
+    flex-wrap: wrap;
+}
+
+/* サービスアイテム(li) */
+.service-item{
+    /* ↓flex-basis要素1つの割合。 */
+    flex: 40%;
+    text-align: center;
+    padding: 20px 20px 0;
+    margin: 5px;
+    border: 3px solid #527acc;
+    border-radius: 10px;
+}
+
+/* アイコン画像 */
+.service-item img{
+    width: 120px;
+    margin: 0 auto;
+}
+
+/* PC版 */
+@media screen and (min-width: 768px) {
+    /* サービスリスト(ul) */
+    .service-content{
+    /* ↓折り返しを有効にする。 */
+    flex-wrap: nowrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    }
+    /* サービスアイテム(li) */
+    ↓
+    .service-item{
+    flex: 1;
+    }
+}
+
+/* モバイル版 */
+/* section(プラン) */
+.plan-area{
+    background-color: #f0f0f0;
+}
+
+/* プランリスト(ul) */
+.plan-content{
+    display: flex;
+    flex-direction: column;
+}
+
+/* プランアイテム(li) */
+.plan-item{
+    background-color: #fff;
+    margin-bottom: 30px;
+    box-shadow: 1px 1px 3px #aaa;
+}
+
+/* 写真以外 */
+.plan-info{
+    padding: 0 15px 15px;
+}
+
+/* プラン名(h2) */
+.plan-title{
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #527acc;
+}
+
+/* 利用料金(p) */
+.plan-price{
+    text-align: center;
+    padding: 10px;
+    border: 2px solid #527acc;
+}
+
+/* リストマーカー */
+.plan-list li::before{
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(../img/list-marker.svg) no-repeat;
+    vertical-align: middle;
+    margin: 0 10px 3px;
+}
+
+/* PC版 */
+@media screen and (min-width: 768px) {
+    /* プランリスト(ul) */
+    .plan-content{
+    /* ↓横並び */
+    flex-direction: row;
+}
+
+/* プランアイテム(li) */
+    .plan-item{
+    /* ↓均等配置にする。 */
+    flex: 1;
+    margin-top: 0;
+    margin-left: 15px;
+    margin-right: 15px;
+    }    
+}
+
+/* モバイル版 */
+/* section(アクセス) */
+.access-area{
+    padding-bottom: 0;
+}
+
+/* 写真 */
+.access-area img{
+    display: block;
+    max-width: 280px;
+    max-height: 280px;
+    border-radius: 50%;
+    /* ↓はみ出た箇所を非表示にする。(昔の表記方法) */
+    overflow: hidden;
+    margin: 10px auto -30px;
+}
+
+/* マップの表示枠 */
+.access-maparea{
+    position: relative;
+    /* ↓横幅に応じた高さになる。(正方形の土台を作る。) */
+    padding-top: 100%;
+    /* ↓これでも可 */
+    /* padding-top: calc(9 / 16 * 100%); */
+    margin-top: 60px;
+}
+
+/* 土台にGoogleマップを追加 */
+.access-map{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* PC版 */
+@media screen and (min-width: 768px) {
+    /* section(アクセス) */
+    .access-content{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-left: 150px;
+    }
+
+    /* マップの表示枠 */
+    .access-maparea{
+        position: relative;
+        /* ↓要素の大きさ？を指定。 */
+        padding-top: 30%;
+    }
+}
+/* ページトップ全体 */
+.pagetop{
+    text-align: right;
+    padding: 15px;
+    background-color: #f0f0f0;
+}
+
+/* リストマーカー */
+.pagetop a::after{
+    content:"";
+    background: url(../img/list-marker.svg) no-repeat;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    /* ↑ここでimgが出てくる。 */
+    vertical-align: middle;
+    margin: 0 0 3px 10px;
+    transform: rotate(-90deg);
+}
+
+/* モバイル版 */
+/* footer */
+.foot-area{
+    color: #fff;
+    text-align: center;
+    padding-top: 40px;
+    background-color: #596680;
+}
+
+/* ロゴ画像 */
+.foot-logo{
+    margin: 0 auto 20px;
+}
+
+/* 電話番号 */
+.text-phone,.text-phone a{
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    /* ↓文字間 */
+    letter-spacing: 0.1em;
+    margin-bottom: 40px;
+}
+
+/* 著作権表示 */
+.foot-area_copy{
+    color: #ccc;
+    font-size: 12px;
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+}
+
+/* PC版 */
+@media screen and (min-width: 768px) {
+    /* ↓PCでは電話発信させない。(イベントの発生を無しにする。) */
+    a[href^="tel:"]{
+        pointer-events: none;
+    }
+}
+
+/* ハンバーガーメニューボタンの線切り替え */
+/* spanタグにクラス名が無い構造のため下の記載になる。 */
+#gnav-input:checked ~ #gnav-open span{
+    /* ↓上の線のみを消す。(opacity: 0;だと3本全部消えてしまう) */
+    background-color: transparent;
+                    /* ↑透明にする。(元の箱？の色⇒background: #555;) */
+}
+
+#gnav-input:checked ~ #gnav-open span::before{
+    transform: rotate(45deg);
+}
+
+#gnav-input:checked ~ #gnav-open span::after{
+    transform: rotate(-45deg);
+    bottom: -8px;
+}
+
+#gnav-open span,
+#gnav-open span::before,
+#gnav-open span::after{
+    transition: 0.3s;
+}
+
+html{
+    scroll-behavior: smooth;
+}
